@@ -4,15 +4,15 @@ import 'dart:convert';
 import 'home.dart'; // Import the Home page
 import 'search.dart';
 
-class CarItem {
+class CoffeItem {
   final String name;
   final double price;
   final String imageUrl;
 
-  CarItem({required this.name, required this.price, required this.imageUrl});
+  CoffeItem({required this.name, required this.price, required this.imageUrl});
 
-  factory CarItem.fromJson(Map<String, dynamic> json) {
-    return CarItem(
+  factory CoffeItem.fromJson(Map<String, dynamic> json) {
+    return CoffeItem(
       name: json['name'],
       price: double.parse(json['price']),
       imageUrl: json['image_url'],
@@ -28,17 +28,17 @@ class CarListView extends StatefulWidget {
 }
 
 class _CarListViewState extends State<CarListView> {
-  late Future<List<CarItem>> _carItems;
+  late Future<List<CoffeItem>> _carItems;
 
-  Future<List<CarItem>> fetchCarItems() async {
+  Future<List<CoffeItem>> fetchCarItems() async {
     final response = await http
         .get(Uri.parse('http://mobile14.atwebpages.com/Productget.php'));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((car) => CarItem.fromJson(car)).toList();
+      return jsonResponse.map((car) => CoffeItem.fromJson(car)).toList();
     } else {
-      throw Exception('Failed to load car items');
+      throw Exception('Failed to load coffe items');
     }
   }
 
@@ -52,10 +52,10 @@ class _CarListViewState extends State<CarListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Car List'),
+        title: Text('Coffee List'),
         actions: [
           IconButton(
-            icon: Icon(Icons.car_rental),
+            icon: Icon(Icons.local_cafe),
             onPressed: () {
               Navigator.push(
                 context,
@@ -77,7 +77,7 @@ class _CarListViewState extends State<CarListView> {
           ),
         ],
       ),
-      body: FutureBuilder<List<CarItem>>(
+      body: FutureBuilder<List<CoffeItem>>(
         future: _carItems,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -85,7 +85,7 @@ class _CarListViewState extends State<CarListView> {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No cars available'));
+            return Center(child: Text('No coffee available'));
           } else {
             final cars = snapshot.data!;
             return ListView.builder(

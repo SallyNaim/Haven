@@ -61,11 +61,11 @@ flutter:
 
 
 assets:
-  - assets/tesla_model_s.jpg
-  - assets/bmw_3_series.jpg
-  - assets/audi_a4.jpg
-  - assets/mercedes_benz_c_class.jpg
-  - assets/default_image.jpg
+  - assets/Americano.jpg
+  - assets/CaffeLatte.jpg
+  - assets/Nescaffe.jpg
+  - assets/coffemocha.jpg
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

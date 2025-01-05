@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 
-// A constant list of car objects to populate the dropdown menu
-List<Car> cars = [
-  Car('Tesla Model S', 79999),
-  Car('BMW 3 Series', 43900),
-  Car('Audi A4', 42900),
-  Car('Mercedes-Benz C-Class', 41900),
+List<Coffee> coffee = [
+  Coffee('Americano', 5),
+  Coffee('Caffe Latte', 8),
+  Coffee('Nescafe 3 in 1', 10),
+  Coffee('Coffee Mocha', 9),
 ];
 
-// Class to represent a car and calculate its total price
-class Car {
+class Coffee {
   String model;
   int price;
-  int warranty = 1; // Default warranty: 1 year
+  int topping = 1; // Default topping
   bool insurance = false; // Default insurance: not included
 
-  Car(this.model, this.price);
+  Coffee(this.model, this.price);
 
   @override
   String toString() {
@@ -24,23 +22,23 @@ class Car {
 
   // Method to calculate the total price
   String getTotalPrice() {
-    int insuranceAmount = insurance ? 1000 : 0;
-    double multiplier = warranty == 1 ? 1.05 : 1.1;
+    int insuranceAmount = insurance ? 2 : 0;
+    double multiplier = topping == 1 ? 1.05 : 1.1;
     return (price * multiplier + insuranceAmount).toStringAsFixed(0);
   }
 }
 
-// Dropdown menu widget for car selection
+// Dropdown menu widget for coffee selection
 class MyDropdownMenuWidget extends StatefulWidget {
-  const MyDropdownMenuWidget({required this.updateCar, super.key});
-  final Function(Car) updateCar;
+  const MyDropdownMenuWidget({required this.updateCoffee, super.key});
+  final Function(Coffee) updateCoffee;
 
   @override
   State<MyDropdownMenuWidget> createState() => _MyDropdownMenuWidgetState();
 }
 
 class _MyDropdownMenuWidgetState extends State<MyDropdownMenuWidget> {
-  Car selectedCar = cars.first;
+  Coffee selectedCoffee = coffee.first;
 
   @override
   Widget build(BuildContext context) {
@@ -48,51 +46,51 @@ class _MyDropdownMenuWidgetState extends State<MyDropdownMenuWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
-        DropdownButton<Car>(
-          value: selectedCar,
-          items: cars.map((Car car) {
+        DropdownButton<Coffee>(
+          value: selectedCoffee,
+          items: coffee.map((Coffee coffeeItem) {
             return DropdownMenuItem(
-              value: car,
+              value: coffeeItem,
               child: Text(
-                car.toString(),
+                coffeeItem.toString(),
                 style: const TextStyle(fontSize: 16),
               ),
             );
           }).toList(),
-          onChanged: (Car? car) {
+          onChanged: (Coffee? coffeeItem) {
             setState(() {
-              if (car != null) {
-                selectedCar = car;
-                widget.updateCar(car);
+              if (coffeeItem != null) {
+                selectedCoffee = coffeeItem;
+                widget.updateCoffee(coffeeItem);
               }
             });
           },
           isExpanded: true,
           style: const TextStyle(fontSize: 18, color: Colors.black),
-          dropdownColor: Colors.blue.shade50,
-          icon: const Icon(Icons.car_rental, color: Colors.blue),
+          dropdownColor: Colors.brown.shade50,
+          icon: const Icon(Icons.local_cafe, color: Colors.brown),
         ),
       ],
     );
   }
 }
 
-// Widget to select warranty years using radio buttons
-class WarrantyWidget extends StatefulWidget {
-  const WarrantyWidget({
-    required this.car,
-    required this.updateWarranty,
+// Widget to select toppings using radio buttons
+class ToppingWidget extends StatefulWidget {
+  const ToppingWidget({
+    required this.coffee,
+    required this.updateTopping,
     super.key,
   });
-  final Function(int) updateWarranty;
-  final Car car;
+  final Function(int) updateTopping;
+  final Coffee coffee;
 
   @override
-  State<WarrantyWidget> createState() => _WarrantyWidgetState();
+  State<ToppingWidget> createState() => _ToppingWidgetState();
 }
 
-class _WarrantyWidgetState extends State<WarrantyWidget> {
-  int selectedYears = 1;
+class _ToppingWidgetState extends State<ToppingWidget> {
+  int selectedTopping = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -102,9 +100,9 @@ class _WarrantyWidgetState extends State<WarrantyWidget> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildRadioOption('1 Year', 1),
+            _buildRadioOption('Whipping Cream', 1),
             const SizedBox(width: 20),
-            _buildRadioOption('5 Years', 5),
+            _buildRadioOption('Syrup of your choice', 5),
           ],
         ),
       ],
@@ -116,12 +114,12 @@ class _WarrantyWidgetState extends State<WarrantyWidget> {
       children: [
         Radio<int>(
           value: value,
-          groupValue: widget.car.warranty,
+          groupValue: widget.coffee.topping,
           onChanged: (int? val) {
             if (val != null) {
               setState(() {
-                selectedYears = val;
-                widget.updateWarranty(val);
+                selectedTopping = val;
+                widget.updateTopping(val);
               });
             }
           },

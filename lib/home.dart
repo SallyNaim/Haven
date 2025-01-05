@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'car.dart';
+import 'Coffee.dart'; // Make sure Coffee.dart file is correctly imported
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -9,20 +9,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String totalPrice = cars.first.getTotalPrice(); // Holds total car price
-  Car car = cars.first; // Initial selected car
+  String totalPrice = coffee.first.getTotalPrice();
+  Coffee coff = coffee.first;
 
-  void updateCar(Car car) {
+  // Updates the selected coffee and the total price
+  void updateCoffee(Coffee coffeeItem) {
     setState(() {
-      this.car = car;
-      totalPrice = car.getTotalPrice();
+      coff = coffeeItem;
+      totalPrice = coffeeItem.getTotalPrice();
     });
   }
 
-  void updateWarranty(int warranty) {
+  // Updates the topping selection and total price
+  void updateTopping(int topping) {
     setState(() {
-      car.warranty = warranty;
-      totalPrice = car.getTotalPrice();
+      coff.topping = topping;
+      totalPrice = coff.getTotalPrice();
     });
   }
 
@@ -31,11 +33,11 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Car Purchase',
+          'Order',
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.brown,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -43,11 +45,11 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSectionTitle('Select Car Model'),
-              MyDropdownMenuWidget(updateCar: updateCar),
+              _buildSectionTitle('Select Coffee'),
+              MyDropdownMenuWidget(updateCoffee: updateCoffee), // Update widget call
               const SizedBox(height: 20),
-              _buildSectionTitle('Select Warranty'),
-              WarrantyWidget(updateWarranty: updateWarranty, car: car),
+              _buildSectionTitle('Select Topping '),
+              ToppingWidget(updateTopping: updateTopping, coffee: coff), // Ensure correct widget name and parameter
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,25 +57,25 @@ class _HomeState extends State<Home> {
                   Row(
                     children: [
                       const Text(
-                        'Add Insurance',
+                        'Add Sugar',
                         style: TextStyle(
                             fontSize: 18.0, fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(width: 8),
                       Checkbox(
-                        value: car.insurance,
+                        value: coff.insurance,
                         onChanged: (bool? value) {
                           setState(() {
-                            car.insurance = value ?? false;
-                            totalPrice = car.getTotalPrice();
+                            coff.insurance = value ?? false;
+                            totalPrice = coff.getTotalPrice();
                           });
                         },
                       ),
                     ],
                   ),
                   Icon(
-                    car.insurance ? Icons.check_circle : Icons.info,
-                    color: car.insurance ? Colors.green : Colors.orange,
+                    coff.insurance ? Icons.check_circle : Icons.info,
+                    color: coff.insurance ? Colors.green : Colors.orange,
                     size: 24,
                   )
                 ],
@@ -95,7 +97,7 @@ class _HomeState extends State<Home> {
                       style: const TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blueAccent),
+                          color: Colors.brown),
                     ),
                   ],
                 ),
@@ -106,7 +108,7 @@ class _HomeState extends State<Home> {
                   // Add logic for "Confirm Purchase" if needed
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Purchase Confirmed!'),
+                      content: Text('Order Confirmed!'),
                       backgroundColor: Colors.green,
                       duration: Duration(seconds: 2),
                     ),
@@ -115,13 +117,13 @@ class _HomeState extends State<Home> {
                 style: ElevatedButton.styleFrom(
                   padding:
                   const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                  backgroundColor: Colors.blueAccent,
+                  backgroundColor: Colors.brown,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
                 child: const Text(
-                  'Confirm Purchase',
+                  'Confirm Order',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

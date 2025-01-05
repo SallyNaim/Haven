@@ -12,9 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Cars',
+      title: 'Coffee Shop',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.brown,
         scaffoldBackgroundColor: Colors.grey[100],
       ),
       home: const WelcomePage(),
@@ -37,7 +37,7 @@ class WelcomePage extends StatelessWidget {
                 height: 300,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.blueAccent, Colors.lightBlueAccent],
+                    colors: [Colors.brown, Colors.orangeAccent],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -54,13 +54,13 @@ class WelcomePage extends StatelessWidget {
                 child: Column(
                   children: [
                     Icon(
-                      Icons.directions_car_filled,
+                      Icons.coffee,
                       size: 100,
                       color: Colors.white,
                     ),
                     SizedBox(height: 20),
                     Text(
-                      'Welcome to MS Car Rental',
+                      'Welcome to Coffee Haven',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 28,
@@ -70,7 +70,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'Your trusted partner for premium car rentals.',
+                      'Your favorite place for freshly brewed coffee.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
@@ -100,7 +100,7 @@ class WelcomePage extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            'Discover a wide variety of top-notch cars.',
+                            'Discover a wide variety of coffee flavors.',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 20,
@@ -110,7 +110,7 @@ class WelcomePage extends StatelessWidget {
                           ),
                           SizedBox(height: 15),
                           Text(
-                            'We guarantee affordable prices and excellent service.',
+                            'We guarantee freshly brewed and aromatic coffees.',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 16,
@@ -126,7 +126,7 @@ class WelcomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CarListView()),
+                            builder: (context) => const  CarListView()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -135,11 +135,11 @@ class WelcomePage extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      backgroundColor: Colors.blueAccent,
+                      backgroundColor: Colors.brown,
                       elevation: 8,
                     ),
                     child: const Text(
-                      'Explore Cars',
+                      'Explore Coffees',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
